@@ -1,18 +1,17 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Table extends JPanel implements ActionListener, KeyListener {
     private static final int BLOCK_SIZE = 20;
-    private static final int NUM_BLOCKS = 3;
+    static int NUM_BLOCKS = 2;
     private Timer timer;
     private int[] x;
     private int[] y;
@@ -20,7 +19,7 @@ public class Table extends JPanel implements ActionListener, KeyListener {
     boolean addblock = true;
     int randome_x ;
     int randome_y ;
-    int marks = 0;
+    static int marks = 0;
     Snake snake = new Snake();
     Tail tail = new Tail();
     
@@ -41,13 +40,13 @@ public class Table extends JPanel implements ActionListener, KeyListener {
     public void paint(Graphics g) {
         super.paint(g);
         g.setColor(Color.black);
+        g.setFont(new Font("Arial", Font.BOLD, 24));
         // draw each block of the snake
         for (int i = 0; i < NUM_BLOCKS; i++) {
             g.fillRect(x[i], y[i], BLOCK_SIZE, BLOCK_SIZE);
         }
         g.fillRect(randome_x, randome_y, BLOCK_SIZE, BLOCK_SIZE);
-        g.drawImage(snake.snaket(), x[0], y[0], 40, 40, null);
-        g.drawImage(snake.snaket(), x[1], y[1], 40, 40, null);
+        g.drawString("Marks  " + marks, 10, 25);
     }
  
     @Override
@@ -97,9 +96,9 @@ public class Table extends JPanel implements ActionListener, KeyListener {
     }
     
     private void resetSnake() {
-        // initialize the snake with 3 blocks
-        x = new int[NUM_BLOCKS];
-        y = new int[NUM_BLOCKS];
+;
+        x = new int[10];
+        y = new int[10];
         for (int i = 0; i < NUM_BLOCKS; i++) {
             x[i] = BLOCK_SIZE;
             y[i] = BLOCK_SIZE * (i + 1);
@@ -121,6 +120,7 @@ public class Table extends JPanel implements ActionListener, KeyListener {
         				randome_x = (int) Math.floor(Math.random() *(570 - 20 + 1) + 20) ;
         	            randome_y = (int) Math.floor(Math.random() *(570 - 20 + 1) + 20) ;
         	            marks ++;
+        	            NUM_BLOCKS ++;
         			}
         		}
         	}
