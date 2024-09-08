@@ -3,8 +3,8 @@ import javax.swing.ImageIcon;
 
 public class Apple {
 	public Image Apple_img() {
-		ImageIcon tail = new ImageIcon("Res/apple.png");
-		Image images = tail.getImage();
+		ImageIcon Ap = new ImageIcon("Res/apple.png");
+		Image images = Ap.getImage();
 	    return images;
 	}
 }
