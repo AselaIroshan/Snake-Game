@@ -1,8 +1,10 @@
 import javax.swing.JFrame;
 
-public class Window extends JFrame{
-	Window(){
-		add(new Tble());
+public class Game extends JFrame{
+	Game(){
+		//main components
+		add(new Game_window());
+
 		setTitle("snake");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);

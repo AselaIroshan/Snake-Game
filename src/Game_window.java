@@ -9,30 +9,36 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Tble extends JPanel implements ActionListener, KeyListener {
-    public static final int BLOCK_SIZE = 10;
-    static int NUM_BLOCKS = 2;
+public class Game_window extends JPanel implements ActionListener, KeyListener {
+    //width and hight a single segment
+    private final int BLOCK_SIZE = 10;
+    //start with 2 segments
+    private int NUM_BLOCKS = 2;
     private Timer timer;
+    //snake cordinates
     private int[] x;
     private int[] y;
     private String direction;
     boolean addblock = true;
+    // randome cordinate for apple
     int randome_x ;
     int randome_y ;
-    static int marks = 0;
+    //score
+    private int marks = 0;
     
-    public Tble() {
+    public Game_window() {
     	randome_x = (int) Math.floor(Math.random() *(570 - 20 + 1) + 20) ;
         randome_y = (int) Math.floor(Math.random() *(570 - 20 + 1) + 20) ;
         setPreferredSize(new Dimension(600, 600));
         addKeyListener(this);
         setFocusable(true);
         setLayout(null);
-        resetSnake();
+        StartGame();
         timer = new Timer(100, this);
         timer.start();
     }
     
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -52,10 +58,16 @@ public class Tble extends JPanel implements ActionListener, KeyListener {
         
         g.drawString("Marks  " + marks, 10, 25);
     }
- 
+
+    //when press and hold snake getting fast
     @Override
     public void keyTyped(KeyEvent e) {
         timer.setDelay(50);
+    }
+    //after getting slow(make initial speed)
+    @Override
+    public void keyReleased(KeyEvent e) {
+        timer.setDelay(100);
     }
     
     @Override
@@ -88,20 +100,16 @@ public class Tble extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        timer.setDelay(100);
-    }
-    
+    //every 100ms, triger this fun
     @Override
     public void actionPerformed(ActionEvent e) {
     	moveSnake();
-        rean_a();
+        ResetApple();
         Colide();
         repaint();
     }
     
-    private void resetSnake() {
+    private void StartGame() {
         x = new int[300];
         y = new int[300];
         for (int i = 0; i < NUM_BLOCKS; i++) {
@@ -111,6 +119,7 @@ public class Tble extends JPanel implements ActionListener, KeyListener {
         direction = "d";
     }
 
+    //when snake colide
     private void Colide(){
         if(x[0] < 10 || y[0] > 570 || x[0] > 570 || y[0]<10) {
         	timer.stop();
@@ -124,7 +133,7 @@ public class Tble extends JPanel implements ActionListener, KeyListener {
 
     }
 
-    private void rean_a(){
+    private void ResetApple(){
         if (x[0] -20< randome_x ) {
         	if(randome_x < x[0] + 20) {
 
